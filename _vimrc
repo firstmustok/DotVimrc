@@ -798,3 +798,10 @@ set tabpagemax=18     "VIM默认只能打开10个标签页，在配置文件可�
 set showtabline=0     "不显示标签栏
 "set showtabline=1     "这是默认设置，意思是，在创建标签页后才显示标签栏。
 "set showtabline=2     "总是显示标签栏
+
+"setting for FuzzyFinder
+map <leader>F :FufFile<CR>
+map <leader>f :FufTaggedFile<CR>
+map <leader>g :FufTag<CR>
+map <leader>b :FufBuffer<CR>
+
