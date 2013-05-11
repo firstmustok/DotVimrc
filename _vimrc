@@ -100,6 +100,15 @@ function! GenerateSymbol()
   set cscopequickfix=s-,g-,d-,t-,e-,f-,i-
 endfunction
 
+" return OS type, eg: windows, or linux, mac, et.st..
+function! MySys()
+  if has("win16") || has("win32") || has("win64") || has("win95")
+    return "windows"
+  elseif has("unix")
+    return "linux"
+  endif
+endfunction
+
 "auto update ctags when save file
 "autocmd BufWritePost *.cpp,*.c,*.h :!ctags -R --sort=yes --c++-kinds=+p --fields=+iaS --extra=+q
 
@@ -514,12 +523,17 @@ autocmd BufRead,BufNew :call UMiniBufExplorer
 """"""""""""""""""""""""""""""
 " Tag list (ctags) - not used
 """"""""""""""""""""""""""""""
-let Tlist_Ctags_Cmd = "ctags.exe"
-let Tlist_Sort_Type = "name"
-let Tlist_Show_Menu = 1
-let Tlist_Show_One_File = 1    
-let Tlist_Exit_OnlyWindow = 1  
-let Tlist_Use_Right_Window = 1 
+if MySys() == "windows"
+  let Tlist_Ctags_Cmd = "ctags.exe"
+elseif MySys() == "linux"
+  let Tlist_Ctags_Cmd = "ctags"
+endif
+
+let Tlist_Sort_Type        = "mru"
+let Tlist_Show_Menu        = 1
+let Tlist_Show_One_File    = 1
+let Tlist_Exit_OnlyWindow  = 1
+let Tlist_Use_Right_Window = 1
 
 map <leader>t :Tlist<cr>
 map <silent> <F10> :TlistToggle<cr>z
