@@ -808,10 +808,10 @@ map <leader>q :NERDTree %:p:h<cr>
 "endfunction
 
 "Don't show the tabs
-set tabpagemax=18     "VIM默认只能打开10个标签页，在配置文件可以修改这个限制
-set showtabline=0     "不显示标签栏
-"set showtabline=1     "这是默认设置，意思是，在创建标签页后才显示标签栏。
-"set showtabline=2     "总是显示标签栏
+set tabpagemax=18     "max 10 tabs
+set showtabline=0     "no tabs
+"set showtabline=1     "default, show only after create
+"set showtabline=2     "always show
 
 "setting for FuzzyFinder
 map <leader>F :FufFile<CR>
@@ -819,3 +819,20 @@ map <leader>f :FufTaggedFile<CR>
 map <leader>g :FufTag<CR>
 map <leader>b :FufBuffer<CR>
 
+" config for chiness code
+"{
+set encoding=utf-8
+set fileencodings=utf-8,chinese,latin-1
+if has("win32")
+ set fileencoding=chinese
+else
+ set fileencoding=utf-8
+endif
+
+"menu 
+source $VIMRUNTIME/delmenu.vim
+source $VIMRUNTIME/menu.vim
+
+"console
+language messages zh_CN.utf-8
+"}
