@@ -76,13 +76,14 @@ set nocp
 
 "Generate symbols for ctag
 "map <C-F12> :!ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .<CR>:cscope -bkR -s .<CR>
-map <C-F12> :call GenerateSymbol()<cr>
+map <C-F12> :call GenerateSymbolLinux()<cr>
 function! GenerateSymbolLinux()
-  silent execute ":!find . -name \"*.h\" -o -name \"*.c\"  -o -name \"*.cpp\" > cscope.files"
-  
+  silent execute ":!ctags -R --c++-kinds=+px --fields=+iaS --extra=+q ."
+
   " for cscope
   cs kill -1
-  silent execute ":!del /f /q cscope.out"
+  silent execute ":!find . -name \"*.h\" -o -name \"*.c\"  -o -name \"*.cpp\" > cscope.files"
+  silent execute ":!rm cscope.out"
   silent execute ":!cscope -bkq -i cscope.files"
   cs add cscope.out
   set cscopequickfix=s-,g-,d-,t-,e-,f-,i-
@@ -615,25 +616,28 @@ function! Python_Eval_VSplit() range
 endfunction
 
 au FileType python vmap <F7> :call Python_Eval_VSplit()<cr>
-   """"""""""""""""""""""""""""""
-   " Cheetah section
-   """""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""
+" Cheetah section
+"""""""""""""""""""""""""""""""
 autocmd FileType cheetah set ft=xml
 autocmd FileType cheetah set syntax=cheetah
-   """""""""""""""""""""""""""""""
-   " Vim section
-   """""""""""""""""""""""""""""""
+
+"""""""""""""""""""""""""""""""
+" Vim section
+"""""""""""""""""""""""""""""""
 autocmd FileType vim set nofen
-   """""""""""""""""""""""""""""""
-   " Java section
-   """""""""""""""""""""""""""""""
+
+"""""""""""""""""""""""""""""""
+" Java section
+"""""""""""""""""""""""""""""""
 au FileType java inoremap <buffer> <C-t> System.out.println();<esc>hi
-   "Java comments
+
+"Java comments
 autocmd FileType java source ~/vim_local/macros/jcommenter.vim
 autocmd FileType java let b:jcommenter_class_author='Amir Salihefendic (amix@amix.dk)'
 autocmd FileType java let b:jcommenter_file_author='Amir Salihefendic (amix@amix.dk)'
 autocmd FileType java map <buffer> <F2> :call JCommentWriter()<cr>
-   "Abbr'z
+"Abbr'z
 autocmd FileType java inoremap <buffer> $pr private
 autocmd FileType java inoremap <buffer> $r return
 autocmd FileType java inoremap <buffer> $pu public
@@ -710,34 +714,37 @@ map <F8> :new<CR>:read !svn diff<CR>:set syntax=diff buftype=nofile<CR>gg
 """"""""""""""""""""""""""""""
 " Snippets
 """""""""""""""""""""""""""""""
-   "You can use <c-j> to goto the next <++> - it is pretty smart ;)
-   """""""""""""""""""""""""""""""
-   " Python
-   """""""""""""""""""""""""""""""
+"You can use <c-j> to goto the next <++> - it is pretty smart ;)
+"""""""""""""""""""""""""""""""
+" Python
+"""""""""""""""""""""""""""""""
 autocmd FileType python inorea <buffer> cfun <c-r>=IMAP_PutTextWithMovement("def <++>(<++>):\n<++>\nreturn <++>")<cr>
 autocmd FileType python inorea <buffer> cclass <c-r>=IMAP_PutTextWithMovement("class <++>:\n<++>")<cr>
 autocmd FileType python inorea <buffer> cfor <c-r>=IMAP_PutTextWithMovement("for <++> in <++>:\n<++>")<cr>
 autocmd FileType python inorea <buffer> cif <c-r>=IMAP_PutTextWithMovement("if <++>:\n<++>")<cr>
 autocmd FileType python inorea <buffer> cifelse <c-r>=IMAP_PutTextWithMovement("if <++>:\n<++>\nelse:\n<++>")<cr>
-   """""""""""""""""""""""""""""""
-   " JavaScript
-   """""""""""""""""""""""""""""""
+
+"""""""""""""""""""""""""""""""
+" JavaScript
+"""""""""""""""""""""""""""""""
 autocmd FileType cheetah,html,javascript inorea <buffer> cfun <c-r>=IMAP_PutTextWithMovement("function <++>(<++>) {\n<++>;\nreturn <++>;\n}")<cr>
 autocmd filetype cheetah,html,javascript inorea <buffer> cfor <c-r>=IMAP_PutTextWithMovement("for(<++>; <++>; <++>) {\n<++>;\n}")<cr>
 autocmd FileType cheetah,html,javascript inorea <buffer> cif <c-r>=IMAP_PutTextWithMovement("if(<++>) {\n<++>;\n}")<cr>
 autocmd FileType cheetah,html,javascript inorea <buffer> cifelse <c-r>=IMAP_PutTextWithMovement("if(<++>) {\n<++>;\n}\nelse {\n<++>;\n}")<cr>
-   """""""""""""""""""""""""""""""
-   " HTML
-   """""""""""""""""""""""""""""""
+
+"""""""""""""""""""""""""""""""
+" HTML
+"""""""""""""""""""""""""""""""
 autocmd FileType cheetah,html inorea <buffer> cahref <c-r>=IMAP_PutTextWithMovement('<a href="<++>"><++></a>')<cr>
 autocmd FileType cheetah,html inorea <buffer> cbold <c-r>=IMAP_PutTextWithMovement('<b><++></b>')<cr>
 autocmd FileType cheetah,html inorea <buffer> cimg <c-r>=IMAP_PutTextWithMovement('<img src="<++>" alt="<++>" />')<cr>
 autocmd FileType cheetah,html inorea <buffer> cpara <c-r>=IMAP_PutTextWithMovement('<p><++></p>')<cr>
 autocmd FileType cheetah,html inorea <buffer> ctag <c-r>=IMAP_PutTextWithMovement('<<++>><++></<++>>')<cr>
 autocmd FileType cheetah,html inorea <buffer> ctag1 <c-r>=IMAP_PutTextWithMovement("<<++>><cr><++><cr></<++>>")<cr>
-   """""""""""""""""""""""""""""""
-   " Java
-   """""""""""""""""""""""""""""""
+
+"""""""""""""""""""""""""""""""
+" Java
+"""""""""""""""""""""""""""""""
 autocmd FileType java inorea <buffer> cfun <c-r>=IMAP_PutTextWithMovement("public<++> <++>(<++>) {\n<++>;\nreturn <++>;\n}")<cr>
 autocmd FileType java inorea <buffer> cfunpr <c-r>=IMAP_PutTextWithMovement("private<++> <++>(<++>) {\n<++>;\nreturn <++>;\n}")<cr>
 autocmd FileType java inorea <buffer> cfor <c-r>=IMAP_PutTextWithMovement("for(<++>; <++>; <++>) {\n<++>;\n}")<cr>
@@ -836,3 +843,7 @@ source $VIMRUNTIME/menu.vim
 "console
 language messages zh_CN.utf-8
 "}
+
+"svn config
+map <F6> :!svn diff %<CR>
+
