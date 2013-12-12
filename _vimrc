@@ -847,3 +847,13 @@ language messages zh_CN.utf-8
 "svn config
 map <F6> :!svn diff %<CR>
 
+"for repeat command .
+
+"for align separator
+"{ Start interactive EasyAlign in visual mode
+vmap <Enter> <Plug>(EasyAlign)
+
+" Start interactive EasyAlign with a Vim movement
+nmap <Leader>a <Plug>(EasyAlign)
+"}
+
