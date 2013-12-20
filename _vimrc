@@ -283,26 +283,6 @@ imap <D-0> <esc>0i
 "Switch to current dir
 map <leader>cd :cd %:p:h<cr>
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Parenthesis/bracket expanding
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-vnoremap $1 <esc>`>a)<esc>`<i(<esc>
-
-")
-vnoremap $2 <esc>`>a]<esc>`<i[<esc>
-vnoremap $3 <esc>`>a}<esc>`<i{<esc>
-vnoremap $$ <esc>`>a"<esc>`<i"<esc>
-vnoremap $q <esc>`>a'<esc>`<i'<esc>
-vnoremap $w <esc>`>a"<esc>`<i"<esc>
-
-"Map auto complete of (, ", ', [
-inoremap $1 ()<esc>:let leavechar=")"<cr>i
-inoremap $2 []<esc>:let leavechar="]"<cr>i
-inoremap $4 {<esc>o}<esc>:let leavechar="}"<cr>O
-inoremap $3 {}<esc>:let leavechar="}"<cr>i
-inoremap $q ''<esc>:let leavechar="'"<cr>i
-inoremap $w ""<esc>:let leavechar='"'<cr>i
-
 au BufNewFile,BufRead *.\(vim\)\@! inoremap " ""<esc>:let leavechar='"'<cr>i
 au BufNewFile,BufRead *.\(txt\)\@! inoremap ' ''<esc>:let leavechar="'"<cr>i
 imap <m-l> <esc>:exec "normal f" . leavechar<cr>a
@@ -855,5 +835,11 @@ vmap <Enter> <Plug>(EasyAlign)
 
 " Start interactive EasyAlign with a Vim movement
 nmap <Leader>a <Plug>(EasyAlign)
+"}
+
+"for auto-pair
+"{ suport auto pair ([
+let g:AutoPairsFlyMode = 1
+let g:AutoPairsShortcutBackInsert = '<M-b>'
 "}
 
