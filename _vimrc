@@ -839,7 +839,7 @@ nmap <Leader>a <Plug>(EasyAlign)
 
 "for auto-pair
 "{ suport auto pair ([
-let g:AutoPairsFlyMode = 1
-let g:AutoPairsShortcutBackInsert = '<M-b>'
+"let g:AutoPairsFlyMode = 1
+"let g:AutoPairsShortcutBackInsert = '<M-b>'
 "}
 
