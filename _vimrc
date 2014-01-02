@@ -640,14 +640,15 @@ function! JavaFold()
   setl foldtext=FoldText()
 endfunction
 
-au FileType java call JavaFold()
+"au FileType java call JavaFold()
 au FileType java setl fen
 au BufEnter *.sablecc,*.scc set ft=sablecc
 
 """"""""""""""""""""""""""""""
 " JavaScript section
 """""""""""""""""""""""""""""""
-au FileType javascript so ~/vim_local/syntax/javascript.vim
+"au FileType javascript so ~/vim_local/syntax/javascript.vim
+au BufRead,BufNewFile jquery.*.js set ft=javascript syntax=jquery
 function! JavaScriptFold()
   setl foldmethod=syntax
   setl foldlevelstart=1
@@ -660,7 +661,7 @@ function! JavaScriptFold()
   setl foldtext=FoldText()
 endfunction
 
-au FileType javascript call JavaScriptFold()
+"au FileType javascript call JavaScriptFold()
 au FileType javascript setl fen
 au FileType javascript imap <c-t> console.log();<esc>hi
 au FileType javascript imap <c-a> alert();<esc>hi
@@ -668,29 +669,35 @@ au FileType javascript setl nocindent
 au FileType javascript inoremap <buffer> $r return
 au FileType javascript inoremap <buffer> $d //<cr>//<cr>//<esc>ka<space>
 au FileType javascript inoremap <buffer> $c /**<cr><space><cr>**/<esc>ka
-   """"""""""""""""""""""""""""""
-   " HTML
-   """""""""""""""""""""""""""""""
+
+""""""""""""""""""""""""""""""
+" HTML
+"""""""""""""""""""""""""""""""
 au FileType html,cheetah set ft=xml
 au FileType html,cheetah set syntax=html
-   """"""""""""""""""""""""""""""
-   " C mappings
-   """""""""""""""""""""""""""""""
+
+""""""""""""""""""""""""""""""
+" C mappings
+"""""""""""""""""""""""""""""""
 autocmd FileType c map <buffer> <leader><space> :w<cr>:!gcc %<cr>
-   """""""""""""""""""""""""""""""
-   " SML
-   """""""""""""""""""""""""""""""
+
+"""""""""""""""""""""""""""""""
+" SML
+"""""""""""""""""""""""""""""""
 autocmd FileType sml map <silent> <buffer> <leader><space> <leader>cd:w<cr>:!sml %<cr>
-   """"""""""""""""""""""""""""""
-   " Scheme bidings
-   """"""""""""""""""""""""""""""
+
+""""""""""""""""""""""""""""""
+" Scheme bidings
+""""""""""""""""""""""""""""""
 autocmd BufNewFile,BufRead *.scm map <buffer> <leader><space> <leader>cd:w<cr>:!petite %<cr>
 autocmd BufNewFile,BufRead *.scm inoremap <buffer> <C-t> (pretty-print )<esc>i
 autocmd BufNewFile,BufRead *.scm vnoremap <C-t> <esc>`>a)<esc>`<i(pretty-print <esc>
-   """"""""""""""""""""""""""""""
-   " SVN section
-   """""""""""""""""""""""""""""""
+
+""""""""""""""""""""""""""""""
+" SVN section
+"""""""""""""""""""""""""""""""
 map <F8> :new<CR>:read !svn diff<CR>:set syntax=diff buftype=nofile<CR>gg
+
 """"""""""""""""""""""""""""""
 " Snippets
 """""""""""""""""""""""""""""""
