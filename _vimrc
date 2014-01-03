@@ -614,8 +614,8 @@ au FileType java inoremap <buffer> <C-t> System.out.println();<esc>hi
 
 "Java comments
 autocmd FileType java source ~/vim_local/macros/jcommenter.vim
-autocmd FileType java let b:jcommenter_class_author='Amir Salihefendic (amix@amix.dk)'
-autocmd FileType java let b:jcommenter_file_author='Amir Salihefendic (amix@amix.dk)'
+autocmd FileType java let b:jcommenter_class_author='Wallace Young(linux.whu@gmail.com)'
+autocmd FileType java let b:jcommenter_file_author='Wallace Young(linux.whu@gmail.com)'
 autocmd FileType java map <buffer> <F2> :call JCommentWriter()<cr>
 "Abbr'z
 autocmd FileType java inoremap <buffer> $pr private
@@ -849,4 +849,5 @@ nmap <Leader>a <Plug>(EasyAlign)
 "let g:AutoPairsFlyMode = 1
 "let g:AutoPairsShortcutBackInsert = '<M-b>'
 "}
+
 
