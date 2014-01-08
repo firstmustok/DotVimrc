@@ -613,10 +613,11 @@ autocmd FileType vim set nofen
 au FileType java inoremap <buffer> <C-t> System.out.println();<esc>hi
 
 "Java comments
-autocmd FileType java source ~/vim_local/macros/jcommenter.vim
-autocmd FileType java let b:jcommenter_class_author='Wallace Young(linux.whu@gmail.com)'
-autocmd FileType java let b:jcommenter_file_author='Wallace Young(linux.whu@gmail.com)'
-autocmd FileType java map <buffer> <F2> :call JCommentWriter()<cr>
+"autocmd FileType java source ~/vim_local/macros/jcommenter.vim
+"autocmd FileType java let b:jcommenter_class_author='Wallace Young(linux.whu@gmail.com)'
+"autocmd FileType java let b:jcommenter_file_author='Wallace Young(linux.whu@gmail.com)'
+"autocmd FileType java map <buffer> <F2> :call JCommentWriter()<cr>
+
 "Abbr'z
 autocmd FileType java inoremap <buffer> $pr private
 autocmd FileType java inoremap <buffer> $r return
