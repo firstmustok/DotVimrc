@@ -858,5 +858,7 @@ if has("gui_running")
 else
   let g:indentLine_color_term = 239
 endif
+"for tab indent
+set list lcs=tab:\|\ "there must following a space
 "}
 
