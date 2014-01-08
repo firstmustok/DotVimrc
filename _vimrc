@@ -129,7 +129,8 @@ endfunction
 "endif
 
 "fold method
-set foldmethod=marker
+"set foldmethod=marker
+set foldmethod=indent
 
 "Some nice mapping to switch syntax (useful if one mixes different languages in one file)
 map <leader>1 :set syntax=cheetah<cr>
