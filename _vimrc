@@ -850,4 +850,12 @@ nmap <Leader>a <Plug>(EasyAlign)
 "let g:AutoPairsShortcutBackInsert = '<M-b>'
 "}
 
+"for indent vertical line (vim > 7.3)
+"{
+if has("gui_running")
+  let g:indentLine_color_gui = '#A4E57E'
+else
+  let g:indentLine_color_term = 239
+endif
+"}
 
