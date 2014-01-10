@@ -33,15 +33,6 @@ nmap <leader>f :find<cr>
 map <leader>ff :only<cr>
 nmap <leader>nw :set nowrap<cr>
 
-"Fast reloading of the .vimrc
-"map <leader>s :source ~/vim_local/vimrc<cr>
-
-"Fast editing of .vimrc
-"map <leader>e :e! ~/vim_local/vimrc<cr>
-
-"When .vimrc is edited, reload it
-"autocmd! bufwritepost vimrc source ~/vim_local/vimrc
-
 "enable pathogen
 call pathogen#infect()
 
@@ -420,6 +411,7 @@ endfunction
 set nobackup
 set nowb
 set noswapfile
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Folding
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -448,11 +440,11 @@ set tw=500
 """"""""""""""""""""""""""""""
 "Auto indent
 set ai
-   "Smart indet
+"Smart indet
 set si
-   "C-style indeting
+"C-style indeting
 set cindent
-   "Wrap lines
+"Wrap lines
 set wrap
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -466,32 +458,37 @@ map <leader>s? z=
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Plugin configuration
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-   """"""""""""""""""""""""""""""
-   " Vim Grep
-   """"""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""
+" Vim Grep
+""""""""""""""""""""""""""""""
 let Grep_Skip_Dirs = 'RCS CVS SCCS .svn'
 let Grep_Cygwin_Find = 1
 
-   """"""""""""""""""""""""""""""
-   " Yank Ring
-   """"""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""
+" Yank Ring
+""""""""""""""""""""""""""""""
 map <leader>y :YRShow<cr>
-   """"""""""""""""""""""""""""""
-   " File explorer
-   """"""""""""""""""""""""""""""
-   "Split vertically
+
+""""""""""""""""""""""""""""""
+" File explorer
+""""""""""""""""""""""""""""""
+"Split vertically
 let g:explVertical=1
-   "Window size
+
+"Window size
 let g:explWinSize=35
 let g:explSplitLeft=1
 let g:explSplitBelow=1
-   "Hide some files
+
+"Hide some files
 let g:explHideFiles='^\.,.*\.class$,.*\.swp$,.*\.pyc$,.*\.swo$,\.DS_Store$'
-   "Hide the help thing..
+
+"Hide the help thing..
 let g:explDetailedHelp=0
-   """"""""""""""""""""""""""""""
-   " Minibuffer
-   """"""""""""""""""""""""""""""
+
+""""""""""""""""""""""""""""""
+" Minibuffer
+""""""""""""""""""""""""""""""
 let g:miniBufExplModSelTarget = 1
 let g:miniBufExplorerMoreThanOne = 2
 let g:miniBufExplModSelTarget = 0
@@ -526,22 +523,11 @@ map <silent> <F10> :TlistToggle<cr>z
 set grepprg=grep\ -nH\ $*
 let g:Tex_DefaultTargetFormat="pdf"
 let g:Tex_ViewRule_pdf='xpdf'
-   "Bindings
-autocmd FileType tex map <silent><leader><space> :w!<cr> :silent! call Tex_RunLaTeX()<cr>
-
- "Auto complete some things ;)
-autocmd FileType tex inoremap $i \indent
-autocmd FileType tex inoremap $* \cdot
-autocmd FileType tex inoremap $i \item
-autocmd FileType tex inoremap $m \[<cr>\]<esc>O
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Filetype generic
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Todo
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-au BufNewFile,BufRead *.todo so ~/vim_local/syntax/amido.vim
 """"""""""""""""""""""""""""""
 " VIM
 """"""""""""""""""""""""""""""
@@ -553,15 +539,17 @@ autocmd FileType vim map <buffer> <leader><space> :w!<cr>:source %<cr>
 let xml_use_xhtml = 1
 "let xml_no_auto_nesting = 1
 "To HTML
-let html_use_css = 1
+let html_use_css      = 1
 let html_number_lines = 0
-let use_xhtml = 1
+let use_xhtml         = 1
+
 """"""""""""""""""""""""""""""
 " Ruby & PHP section
 """"""""""""""""""""""""""""""
 autocmd FileType ruby map <buffer> <leader><space> :w!<cr>:!ruby %<cr>
 autocmd FileType php compiler php
 autocmd FileType php map <buffer> <leader><space> <leader>cd:w<cr>:make %<cr>
+
 """"""""""""""""""""""""""""""
 " Python section
 """"""""""""""""""""""""""""""
@@ -577,15 +565,6 @@ autocmd FileType python set efm=%C\ %.%#,%A\ \ File\ \"%f\"\\,\ line\ %l%.%#,%Z%
 
 "python dict dir
 let g:pydiction_location = $VIM . '/vimfiles/bundle/pydiction/complete-dict'
-
-"Python iMaps
-au FileType python set cindent
-au FileType python inoremap <buffer> $r return
-au FileType python inoremap <buffer> $s self
-au FileType python inoremap <buffer> $c ##<cr>#<space><cr>#<esc>kla
-au FileType python inoremap <buffer> $i import
-au FileType python inoremap <buffer> $p print
-au FileType python inoremap <buffer> $d """<cr>"""<esc>O
 
 "Run in the Python interpreter
 function! Python_Eval_VSplit() range
@@ -607,26 +586,6 @@ autocmd FileType cheetah set syntax=cheetah
 " Vim section
 """""""""""""""""""""""""""""""
 autocmd FileType vim set nofen
-
-"""""""""""""""""""""""""""""""
-" Java section
-"""""""""""""""""""""""""""""""
-au FileType java inoremap <buffer> <C-t> System.out.println();<esc>hi
-
-"Java comments
-"autocmd FileType java source ~/vim_local/macros/jcommenter.vim
-"autocmd FileType java let b:jcommenter_class_author='Wallace Young(linux.whu@gmail.com)'
-"autocmd FileType java let b:jcommenter_file_author='Wallace Young(linux.whu@gmail.com)'
-"autocmd FileType java map <buffer> <F2> :call JCommentWriter()<cr>
-
-"Abbr'z
-autocmd FileType java inoremap <buffer> $pr private
-autocmd FileType java inoremap <buffer> $r return
-autocmd FileType java inoremap <buffer> $pu public
-autocmd FileType java inoremap <buffer> $i import
-autocmd FileType java inoremap <buffer> $b boolean
-autocmd FileType java inoremap <buffer> $v void
-autocmd FileType java inoremap <buffer> $s String
 
 "Folding
 function! JavaFold()
@@ -665,12 +624,7 @@ endfunction
 
 "au FileType javascript call JavaScriptFold()
 au FileType javascript setl fen
-au FileType javascript imap <c-t> console.log();<esc>hi
-au FileType javascript imap <c-a> alert();<esc>hi
 au FileType javascript setl nocindent
-au FileType javascript inoremap <buffer> $r return
-au FileType javascript inoremap <buffer> $d //<cr>//<cr>//<esc>ka<space>
-au FileType javascript inoremap <buffer> $c /**<cr><space><cr>**/<esc>ka
 
 """"""""""""""""""""""""""""""
 " HTML
@@ -699,51 +653,6 @@ autocmd BufNewFile,BufRead *.scm vnoremap <C-t> <esc>`>a)<esc>`<i(pretty-print <
 " SVN section
 """""""""""""""""""""""""""""""
 map <F8> :new<CR>:read !svn diff<CR>:set syntax=diff buftype=nofile<CR>gg
-
-""""""""""""""""""""""""""""""
-" Snippets
-"""""""""""""""""""""""""""""""
-"You can use <c-j> to goto the next <++> - it is pretty smart ;)
-"""""""""""""""""""""""""""""""
-" Python
-"""""""""""""""""""""""""""""""
-autocmd FileType python inorea <buffer> cfun <c-r>=IMAP_PutTextWithMovement("def <++>(<++>):\n<++>\nreturn <++>")<cr>
-autocmd FileType python inorea <buffer> cclass <c-r>=IMAP_PutTextWithMovement("class <++>:\n<++>")<cr>
-autocmd FileType python inorea <buffer> cfor <c-r>=IMAP_PutTextWithMovement("for <++> in <++>:\n<++>")<cr>
-autocmd FileType python inorea <buffer> cif <c-r>=IMAP_PutTextWithMovement("if <++>:\n<++>")<cr>
-autocmd FileType python inorea <buffer> cifelse <c-r>=IMAP_PutTextWithMovement("if <++>:\n<++>\nelse:\n<++>")<cr>
-
-"""""""""""""""""""""""""""""""
-" JavaScript
-"""""""""""""""""""""""""""""""
-autocmd FileType cheetah,html,javascript inorea <buffer> cfun <c-r>=IMAP_PutTextWithMovement("function <++>(<++>) {\n<++>;\nreturn <++>;\n}")<cr>
-autocmd filetype cheetah,html,javascript inorea <buffer> cfor <c-r>=IMAP_PutTextWithMovement("for(<++>; <++>; <++>) {\n<++>;\n}")<cr>
-autocmd FileType cheetah,html,javascript inorea <buffer> cif <c-r>=IMAP_PutTextWithMovement("if(<++>) {\n<++>;\n}")<cr>
-autocmd FileType cheetah,html,javascript inorea <buffer> cifelse <c-r>=IMAP_PutTextWithMovement("if(<++>) {\n<++>;\n}\nelse {\n<++>;\n}")<cr>
-
-"""""""""""""""""""""""""""""""
-" HTML
-"""""""""""""""""""""""""""""""
-autocmd FileType cheetah,html inorea <buffer> cahref <c-r>=IMAP_PutTextWithMovement('<a href="<++>"><++></a>')<cr>
-autocmd FileType cheetah,html inorea <buffer> cbold <c-r>=IMAP_PutTextWithMovement('<b><++></b>')<cr>
-autocmd FileType cheetah,html inorea <buffer> cimg <c-r>=IMAP_PutTextWithMovement('<img src="<++>" alt="<++>" />')<cr>
-autocmd FileType cheetah,html inorea <buffer> cpara <c-r>=IMAP_PutTextWithMovement('<p><++></p>')<cr>
-autocmd FileType cheetah,html inorea <buffer> ctag <c-r>=IMAP_PutTextWithMovement('<<++>><++></<++>>')<cr>
-autocmd FileType cheetah,html inorea <buffer> ctag1 <c-r>=IMAP_PutTextWithMovement("<<++>><cr><++><cr></<++>>")<cr>
-
-"""""""""""""""""""""""""""""""
-" Java
-"""""""""""""""""""""""""""""""
-autocmd FileType java inorea <buffer> cfun <c-r>=IMAP_PutTextWithMovement("public<++> <++>(<++>) {\n<++>;\nreturn <++>;\n}")<cr>
-autocmd FileType java inorea <buffer> cfunpr <c-r>=IMAP_PutTextWithMovement("private<++> <++>(<++>) {\n<++>;\nreturn <++>;\n}")<cr>
-autocmd FileType java inorea <buffer> cfor <c-r>=IMAP_PutTextWithMovement("for(<++>; <++>; <++>) {\n<++>;\n}")<cr>
-autocmd FileType java inorea <buffer> cif <c-r>=IMAP_PutTextWithMovement("if(<++>) {\n<++>;\n}")<cr>
-autocmd FileType java inorea <buffer> cifelse <c-r>=IMAP_PutTextWithMovement("if(<++>) {\n<++>;\n}\nelse {\n<++>;\n}")<cr>
-autocmd FileType java inorea <buffer> cclass <c-r>=IMAP_PutTextWithMovement("class <++> <++> {\n<++>\n}")<cr>
-autocmd FileType java inorea <buffer> cmain <c-r>=IMAP_PutTextWithMovement("public static void main(String[] argv) {\n<++>\n}")<cr>
-
-"Presse c-q insted of space (or other key) to complete the snippet
-imap <C-q> <C-]>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Cope
@@ -798,10 +707,6 @@ endfunction
 
 "open NERDTree with current dir
 map <leader>q :NERDTree %:p:h<cr>
-"function! NERDOpenCurDir()
-"  silent exe ":cd %:p:h<cr>"
-"  silent exe ":NERDTree %:p:h<cr>"
-"endfunction
 
 "Don't show the tabs
 set tabpagemax=18     "max 10 tabs
