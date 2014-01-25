@@ -555,13 +555,13 @@ autocmd FileType php map <buffer> <leader><space> <leader>cd:w<cr>:make %<cr>
 """"""""""""""""""""""""""""""
 "Run the current buffer in python - ie. on leader+space
 "au FileType python so ~/vim_local/syntax/python.vim
-au BufNewFile,BufRead *.py,*.pyw setf python
-au FileType python so $VIM/vimfiles/syntax/python.vim
-autocmd FileType python map <buffer> <leader><space> :w!<cr>:!python %<cr>
+"au BufNewFile,BufRead *.py,*.pyw setf python
+"au FileType python so $VIM/vimfiles/syntax/python.vim
+"autocmd FileType python map <buffer> <leader><space> :w!<cr>:!python %<cr>
 "autocmd FileType python so ~/vim_local/plugin/python_fold.vim
 "Set some bindings up for 'compile' of python
-autocmd FileType python set makeprg=python\ -c\ \"import\ py_compile,sys;\ sys.stderr=sys.stdout;\ py_compile.compile(r'%')\"
-autocmd FileType python set efm=%C\ %.%#,%A\ \ File\ \"%f\"\\,\ line\ %l%.%#,%Z%[%^\ ]%\\@=%m
+"autocmd FileType python set makeprg=python\ -c\ \"import\ py_compile,sys;\ sys.stderr=sys.stdout;\ py_compile.compile(r'%')\"
+"autocmd FileType python set efm=%C\ %.%#,%A\ \ File\ \"%f\"\\,\ line\ %l%.%#,%Z%[%^\ ]%\\@=%m
 
 "python dict dir
 let g:pydiction_location = $VIM . '/vimfiles/bundle/pydiction/complete-dict'
@@ -749,6 +749,9 @@ vmap <Enter> <Plug>(EasyAlign)
 
 " Start interactive EasyAlign with a Vim movement
 nmap <Leader>a <Plug>(EasyAlign)
+
+"for align with :
+vmap <Leader>a :EasyAlign * /:/s0r1l1<cr>
 "}
 
 "for auto-pair
