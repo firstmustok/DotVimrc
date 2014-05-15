@@ -39,7 +39,7 @@ call pathogen#infect()
 "powerline{ 
   "set guifont=PowerlineSymbols\ for\ Powerline 
   "set guifont=Terminus\ 8
-  set guifont=Courier_New_for_Powerline:h11
+  set guifont=Courier_New_for_Powerline:h9
   set t_Co=256
   let g:Powerline_symbols = 'fancy' 
 "}
@@ -770,4 +770,11 @@ endif
 "for tab indent
 set list lcs=tab:\|\ "there must following a space
 "}
+
+" change the cursor type
+if has("autocmd")
+  au InsertEnter * silent execute "!gconftool-2 --type string --set /apps/gnome-terminal/profiles/Default/cursor_shape ibeam"
+  au InsertLeave * silent execute "!gconftool-2 --type string --set /apps/gnome-terminal/profiles/Default/cursor_shape block"
+  au VimLeave * silent execute "!gconftool-2 --type string --set /apps/gnome-terminal/profiles/Default/cursor_shape block"
+endif
 
