@@ -271,6 +271,10 @@ imap <m-0> <esc>0i
 imap <D-$> <esc>$a
 imap <D-0> <esc>0i
 
+" easier moving of code blocks
+vnoremap < <gv
+vnoremap > >gv
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " General Autocommands
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -519,6 +523,14 @@ let Tlist_Use_Right_Window = 1
 map <leader>t :Tlist<cr>
 map <silent> <F10> :TlistToggle<cr>z
 
+" Settings for ctrlp
+" " cd ~/.vim/bundle
+" " git clone https://github.com/kien/ctrlp.vim.git
+let g:ctrlp_max_height = 30
+set wildignore+=*.pyc
+set wildignore+=*_build/*
+set wildignore+=*/coverage/*
+
 """"""""""""""""""""""""""""""
 " LaTeX Suite things
 """"""""""""""""""""""""""""""
@@ -553,31 +565,59 @@ autocmd FileType php compiler php
 autocmd FileType php map <buffer> <leader><space> <leader>cd:w<cr>:make %<cr>
 
 """"""""""""""""""""""""""""""
-" Python section
+" Python section (ref https://github.com/mbrochh/vim-as-a-python-ide)
 """"""""""""""""""""""""""""""
-"Run the current buffer in python - ie. on leader+space
-"au FileType python so ~/vim_local/syntax/python.vim
-"au BufNewFile,BufRead *.py,*.pyw setf python
-"au FileType python so $VIM/vimfiles/syntax/python.vim
-"autocmd FileType python map <buffer> <leader><space> :w!<cr>:!python %<cr>
-"autocmd FileType python so ~/vim_local/plugin/python_fold.vim
-"Set some bindings up for 'compile' of python
-"autocmd FileType python set makeprg=python\ -c\ \"import\ py_compile,sys;\ sys.stderr=sys.stdout;\ py_compile.compile(r'%')\"
-"autocmd FileType python set efm=%C\ %.%#,%A\ \ File\ \"%f\"\\,\ line\ %l%.%#,%Z%[%^\ ]%\\@=%m
 
-"python dict dir
-let g:pydiction_location = $VIM . '/vimfiles/bundle/pydiction/complete-dict'
+" Settings for python-mode
+" " Note: I'm no longer using this. Leave this commented out
+" " and uncomment the part about jedi-vim instead
+" " cd ~/.vim/bundle
+" " git clone https://github.com/klen/python-mode
+map <Leader>g :call RopeGotoDefinition()<CR>
+let ropevim_enable_shortcuts = 1
+let g:pymode_rope_goto_def_newwin = "vnew"
+let g:pymode_rope_extended_complete = 1
+let g:pymode_breakpoint = 0
+let g:pymode_syntax = 1
+let g:pymode_syntax_builtin_objs = 0
+let g:pymode_syntax_builtin_funcs = 0
+map <Leader>b Oimport ipdb; ipdb.set_trace() # BREAKPOINT<C-c>
 
-"Run in the Python interpreter
-function! Python_Eval_VSplit() range
-  let src = tempname()
-  let dst = tempname()
-  execute ": " . a:firstline . "," . a:lastline . "w " . src
-  execute ":!python " . src . " > " . dst
-  execute ":pedit! " . dst
+" Settings for jedi-vim
+" " cd ~/.vim/bundle
+" " git clone git://github.com/davidhalter/jedi-vim.git
+let g:jedi#usages_command = "<leader>z"
+let g:jedi#popup_on_dot = 0
+let g:jedi#popup_select_first = 0
+map <Leader>b Oimport ipdb; ipdb.set_trace() # BREAKPOINT<C-c>
+
+"" Better navigating through omnicomplete option list
+" See http://stackoverflow.com/questions/2170023/how-to-map-keys-for-popup-menu-in-vim
+set completeopt=longest,menuone
+function! OmniPopup(action)
+    if pumvisible()
+        if a:action == 'j'
+            return "\<C-N>"
+        elseif a:action == 'k'
+            return "\<C-P>"
+        endif
+    endif
+    return a:action
 endfunction
 
-au FileType python vmap <F7> :call Python_Eval_VSplit()<cr>
+inoremap <silent><C-j> <C-R>=OmniPopup('j')<CR>
+inoremap <silent><C-k> <C-R>=OmniPopup('k')<CR>
+
+" " Python folding
+" " mkdir -p ~/.vim/ftplugin
+" " wget -O ~/.vim/ftplugin/python_editing.vim http://www.vim.org/scripts/download_script.php?src_id=5492
+set nofoldenable
+
+""""""""""""""""""""""""""""""
+" End Python section
+""""""""""""""""""""""""""""""
+
+
 """"""""""""""""""""""""""""""
 " Cheetah section
 """""""""""""""""""""""""""""""
@@ -716,12 +756,6 @@ set showtabline=0     "no tabs
 "set showtabline=1     "default, show only after create
 "set showtabline=2     "always show
 
-"setting for FuzzyFinder
-map <leader>F :FufFile<CR>
-map <leader>f :FufTaggedFile<CR>
-map <leader>g :FufTag<CR>
-map <leader>b :FufBuffer<CR>
-
 " config for chiness code
 "{
 set encoding=utf-8
@@ -780,9 +814,4 @@ if has("autocmd")
   au VimLeave * silent execute "!gconftool-2 --type string --set /apps/gnome-terminal/profiles/Default/cursor_shape block"
 endif
 
-" easier moving of code blocks
-vnoremap < <gv
-vnoremap > >gv
-
-"set colorcolumn=80
 
