@@ -4,6 +4,8 @@
 "Get out of VI's compatible mode..
 set nocompatible
 
+autocmd! BufWritePost .vimrc source %
+
 "Sets how many lines of history VIM har to remember
 "set history = 400
 
@@ -777,4 +779,10 @@ if has("autocmd")
   au InsertLeave * silent execute "!gconftool-2 --type string --set /apps/gnome-terminal/profiles/Default/cursor_shape block"
   au VimLeave * silent execute "!gconftool-2 --type string --set /apps/gnome-terminal/profiles/Default/cursor_shape block"
 endif
+
+" easier moving of code blocks
+vnoremap < <gv
+vnoremap > >gv
+
+"set colorcolumn=80
 
