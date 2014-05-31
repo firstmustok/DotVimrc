@@ -41,10 +41,26 @@ call pathogen#infect()
 "powerline{ 
   "set guifont=PowerlineSymbols\ for\ Powerline 
   "set guifont=Terminus\ 8
-  set guifont=Courier_New_for_Powerline:h9
+  "set guifont=Courier_New_for_Powerline:h9
   set t_Co=256
-  let g:Powerline_symbols = 'fancy' 
+  "let g:Powerline_symbols = 'fancy' 
 "}
+
+" vim air-line
+set laststatus=2
+
+let g:airline_theme="powerlineish"
+let g:airline_detect_whitespace=0
+let g:airline_powerline_fonts = 1
+let g:airline_symbols = {}
+
+let g:airline_left_sep = '⮀'
+let g:airline_left_alt_sep = '⮁'
+let g:airline_right_sep = '⮂'
+let g:airline_right_alt_sep = '⮃'
+let g:airline_symbols.branch = '⭠'
+let g:airline_symbols.readonly = '⭤'
+let g:airline_symbols.linenr = '⭡'
 
 ""flymaker
 "let g:FlymakerOn = 1
