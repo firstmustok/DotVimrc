@@ -695,6 +695,8 @@ autocmd BufNewFile,BufRead *.scm vnoremap <C-t> <esc>`>a)<esc>`<i(pretty-print <
 " SVN section
 """""""""""""""""""""""""""""""
 map <F8> :new<CR>:read !svn diff<CR>:set syntax=diff buftype=nofile<CR>gg
+map <F6> :!svn diff %<CR>
+
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Cope
@@ -722,24 +724,6 @@ map <F2> :%s/\s*$//g<cr>:noh<cr>''
 
 "Super paste
 inoremap <C-v> <esc>:set paste<cr>mui<C-R>+<esc>mv'uV'v=:set nopaste<cr>
-
-"A function that inserts links & anchors on a TOhtml export.
-" Notice:
-" Syntax used is:
-" Link
-" Anchor
-function! SmartTOHtml()
-  TOhtml
-  try
-  %s/&quot;\s\+\*&gt; \(.\+\)</" <a href="#\1" style="color: cyan">\1<\/a></g
-  %s/&quot;\(-\|\s\)\+\*&gt; \(.\+\)</" \&nbsp;\&nbsp; <a href="#\2" style="color: cyan;">\2<\/a></g
-  %s/&quot;\s\+=&gt; \(.\+\)</" <a name="\1" style="color: #fff">\1<\/a></g
-  catch
-  endtry
-
-  exe ":write!"
-  exe ":bd"
-endfunction
 
 "Max window when startup
 "au GUIEnter * simalt ~x
@@ -773,9 +757,6 @@ source $VIMRUNTIME/menu.vim
 "console
 language messages zh_CN.utf-8
 "}
-
-"svn config
-map <F6> :!svn diff %<CR>
 
 "for repeat command .
 
