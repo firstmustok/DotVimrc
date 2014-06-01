@@ -46,7 +46,7 @@ call pathogen#infect()
   "let g:Powerline_symbols = 'fancy' 
 "}
 
-" vim air-line
+" vim air-line(ref https://github.com/bling/vim-airline)
 set laststatus=2
 
 let g:airline_theme="powerlineish"
@@ -61,6 +61,33 @@ let g:airline_right_alt_sep = '⮃'
 let g:airline_symbols.branch = '⭠'
 let g:airline_symbols.readonly = '⭤'
 let g:airline_symbols.linenr = '⭡'
+
+" rainbow parentless
+"let g:rbpt_max = 16
+"let g:rbpt_loadcmd_toggle = 1
+"let g:rbpt_colorpairs = [
+"    \ ['brown',       'RoyalBlue3'],
+"    \ ['Darkblue',    'SeaGreen3'],
+"    \ ['darkgray',    'DarkOrchid3'],
+"    \ ['darkgreen',   'firebrick3'],
+"    \ ['darkcyan',    'RoyalBlue3'],
+"    \ ['darkred',     'SeaGreen3'],
+"    \ ['darkmagenta', 'DarkOrchid3'],
+"    \ ['brown',       'firebrick3'],
+"    \ ['gray',        'RoyalBlue3'],
+"    \ ['black',       'SeaGreen3'],
+"    \ ['darkmagenta', 'DarkOrchid3'],
+"    \ ['Darkblue',    'firebrick3'],
+"    \ ['darkgreen',   'RoyalBlue3'],
+"    \ ['darkcyan',    'SeaGreen3'],
+"    \ ['darkred',     'DarkOrchid3'],
+"    \ ['red',         'firebrick3'],
+"    \ ]
+
+"au VimEnter * RainbowParenthesesToggle
+"au Syntax * RainbowParenthesesLoadRound
+"au Syntax * RainbowParenthesesLoadSquare
+"au Syntax * RainbowParenthesesLoadBraces
 
 ""flymaker
 "let g:FlymakerOn = 1
@@ -584,7 +611,7 @@ autocmd FileType php map <buffer> <leader><space> <leader>cd:w<cr>:make %<cr>
 " Python section (ref https://github.com/mbrochh/vim-as-a-python-ide)
 """"""""""""""""""""""""""""""
 
-" Settings for python-mode
+""" Settings for python-mode
 " " Note: I'm no longer using this. Leave this commented out
 " " and uncomment the part about jedi-vim instead
 " " cd ~/.vim/bundle
@@ -811,4 +838,52 @@ if has("autocmd")
   au VimLeave * silent execute "!gconftool-2 --type string --set /apps/gnome-terminal/profiles/Default/cursor_shape block"
 endif
 
+" YCM config
+set completeopt=longest,menu  "让Vim的补全菜单行为与一般IDE一致(参考VimTip1228)
+autocmd InsertLeave * if pumvisible() == 0|pclose|endif "离开插入模式后自动关闭预览窗口
+inoremap <expr> <CR>       pumvisible() ? "\<C-y>" : "\<CR>"  "回车即选中当前项
+"上下左右键的行为 会显示其他信息
+inoremap <expr> <Down>     pumvisible() ? "\<C-n>" : "\<Down>"
+inoremap <expr> <Up>       pumvisible() ? "\<C-p>" : "\<Up>"
+inoremap <expr> <PageDown> pumvisible() ? "\<PageDown>\<C-p>\<C-n>" : "\<PageDown>"
+inoremap <expr> <PageUp>   pumvisible() ? "\<PageUp>\<C-p>\<C-n>" : "\<PageUp>"
+
+"youcompleteme  默认tab  s-tab 和自动补全冲突
+let g:ycm_key_list_select_completion = ['<C-TAB>', '<Down>']
+let g:ycm_key_list_previous_completion = ['<C-S-TAB>', '<Up>']
+let g:ycm_global_ycm_extra_conf = '~/.vim/bundle/YouCompleteMe/third_party/ycmd/ycm_default_conf.py'
+let g:ycm_collect_identifiers_from_tags_files = 1
+let g:ycm_min_num_of_chars_for_completion=2 " 从第2个键入字符就开始罗列匹配项
+let g:ycm_seed_identifiers_with_syntax = 1
+let g:ycm_confirm_extra_conf = 0
+"let g:ycm_key_invoke_completion = '<C-/>'
+
+"在注释输入中也能补全
+let g:ycm_complete_in_comments = 1
+"在字符串输入中也能补全
+let g:ycm_complete_in_strings = 1
+"注释和字符串中的文字也会被收入补全
+let g:ycm_collect_identifiers_from_comments_and_strings = 0
+
+nnoremap <F5> :YcmForceCompileAndDiagnostics<CR>
+nnoremap <leader>jd :YcmCompleter GoToDefinitionElseDeclaration<CR> " go to 
+
+"Ultisnips config
+" Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
+"let g:UltiSnipsListSnippets="<c-s-tab>"
+"let g:UltiSnipsExpandTrigger="<c-tab>"
+let g:SuperTabDefaultCompletionType = '<c-tab>'
+" let g:UltiSnipsExpandTrigger="<tab>"
+let g:UltiSnipsJumpForwardTrigger="<c-l>"
+let g:UltiSnipsJumpBackwardTrigger="<c-h>"
+
+" If you want :UltiSnipsEdit to split your window.
+let g:UltiSnipsEditSplit="vertical"
+let g:UltiSnipsSnippetDirectories=["bundle/vim-snippets/UltiSnips"]
+
+" Syntastic
+let g:syntastic_error_symbol='✗'
+let g:syntastic_warning_symbol='⚠'
+let g:syntastic_enable_highlighting=0
+let g:syntastic_auto_loc_list=1
 
