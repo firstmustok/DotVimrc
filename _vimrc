@@ -849,8 +849,8 @@ inoremap <expr> <PageDown> pumvisible() ? "\<PageDown>\<C-p>\<C-n>" : "\<PageDow
 inoremap <expr> <PageUp>   pumvisible() ? "\<PageUp>\<C-p>\<C-n>" : "\<PageUp>"
 
 "youcompleteme  默认tab  s-tab 和自动补全冲突
-let g:ycm_key_list_select_completion = ['<C-TAB>', '<Down>']
-let g:ycm_key_list_previous_completion = ['<C-S-TAB>', '<Up>']
+let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
+let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
 let g:ycm_global_ycm_extra_conf = '~/.vim/bundle/YouCompleteMe/third_party/ycmd/ycm_default_conf.py'
 let g:ycm_collect_identifiers_from_tags_files = 1
 let g:ycm_min_num_of_chars_for_completion=2 " 从第2个键入字符就开始罗列匹配项
@@ -868,11 +868,27 @@ let g:ycm_collect_identifiers_from_comments_and_strings = 0
 nnoremap <F5> :YcmForceCompileAndDiagnostics<CR>
 nnoremap <leader>jd :YcmCompleter GoToDefinitionElseDeclaration<CR> " go to 
 
+let g:ycm_filetype_whitelist = { 'c': 1, 'cpp': 1 }
+
+"let g:ycm_filetype_blacklist = {
+"      \ 'tagbar' : 1,
+"      \ 'qf' : 1,
+"      \ 'notes' : 1,
+"      \ 'markdown' : 1,
+"      \ 'unite' : 1,
+"      \ 'text' : 1,
+"      \ 'vimwiki' : 1,
+"      \ 'pandoc' : 1,
+"      \ 'infolog' : 1,
+"      \ 'mail' : 1,
+"      \ 'python' : 1
+"      \}
+
 "Ultisnips config
 " Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
 "let g:UltiSnipsListSnippets="<c-s-tab>"
 "let g:UltiSnipsExpandTrigger="<c-tab>"
-let g:SuperTabDefaultCompletionType = '<c-tab>'
+"let g:SuperTabDefaultCompletionType = '<c-tab>'
 " let g:UltiSnipsExpandTrigger="<tab>"
 let g:UltiSnipsJumpForwardTrigger="<c-l>"
 let g:UltiSnipsJumpBackwardTrigger="<c-h>"
