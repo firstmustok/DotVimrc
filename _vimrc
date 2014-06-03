@@ -929,3 +929,7 @@ au VimEnter * RainbowParenthesesToggle
 au Syntax * RainbowParenthesesLoadRound
 au Syntax * RainbowParenthesesLoadSquare
 au Syntax * RainbowParenthesesLoadBraces
+
+" supertab top to bottom
+let g:SuperTabDefaultCompletionType = "<c-n>"
+
