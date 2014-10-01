@@ -77,6 +77,59 @@ snippet cl
 	private:
 		${0:/* data */}
 	};
+
+# class implement
+snippet cimp
+	#include "${1:`vim_snippets#Filename('$1', 'name')`}.h"
+
+	${2:`vim_snippets#Filename('$1', 'name')`}::$2()
+	{
+	}
+
+	$2::~$2()
+	{
+	}
+
+##
+## singleton class
+snippet scl
+	class ${1:`vim_snippets#Filename('$1', 'name')`}
+	{
+	public:
+		virtual ~$1();
+		static $1* instance();
+
+	protected:
+		$1(${2});
+
+	private:
+		static $1* s_instance;
+		${0:/* data */}
+	};
+
+# singleton implement
+snippet scimp
+	#include "${1:`vim_snippets#Filename('$1', 'name')`}.h"
+
+	${2:`vim_snippets#Filename('$1', 'name')`}::$2()
+	{
+	}
+
+	$2::~$2()
+	{
+	}
+
+	$2* $2::s_instance = NULL;
+	$2* $2::instance()
+	{
+		if(NULL == s_instance)
+		{
+			s_instance = new $2();
+		}
+
+		return s_instance;
+	}
+
 # member function implementation
 snippet mfun
 	${4:void} ${1:`vim_snippets#Filename('$1', 'ClassName')`}::${2:memberFunction}(${3}) {
