@@ -184,8 +184,8 @@ if has("gui_running")
 endif
 
 "Omni menu colors
-hi Pmenu guibg=#333333
-hi PmenuSel guibg=#555555 guifg=#ffffff
+"hi Pmenu guibg=#333333
+"hi PmenuSel guibg=#555555 guifg=#ffffff
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Fileformats
@@ -241,7 +241,7 @@ set hlsearch
 "Always hide the statusline
 set laststatus=2
 function! CurDir()
-  let curdir = substitute(getcwd(), '/Users/amir/', "~/", "g")
+  let curdir = substitute(getcwd(), '/home/wallance-young/', "~/", "g")
   return curdir
 endfunction
 
@@ -766,7 +766,7 @@ set pastetoggle=<F3>
 map <F2> :%s/\s*$//g<cr>:noh<cr>''
 
 "Super paste
-inoremap <C-v> <esc>:set paste<cr>mui<C-R>+<esc>mv'uV'v=:set nopaste<cr>
+inoremap <C-v> <esc>:set paste<cr>mua<C-R>+<esc>mv'uV'v=:set nopaste<cr>
 
 "Max window when startup
 "au GUIEnter * simalt ~x
@@ -776,6 +776,10 @@ inoremap <C-v> <esc>:set paste<cr>mui<C-R>+<esc>mv'uV'v=:set nopaste<cr>
 
 "open NERDTree with current dir
 map <leader>q :NERDTree %:p:h<cr>
+
+"NERDTree ignore some files
+let NERDTreeIgnore = ['\.pyc$', '\.o$', '\.cxx$']
+"let NERDTreeShowHidden=1
 
 "Don't show the tabs
 set tabpagemax=18     "max 10 tabs
@@ -832,11 +836,11 @@ set list lcs=tab:\|\ "there must following a space
 "}
 
 " change the cursor type
-if has("autocmd")
-  au InsertEnter * silent execute "!gconftool-2 --type string --set /apps/gnome-terminal/profiles/Default/cursor_shape ibeam"
-  au InsertLeave * silent execute "!gconftool-2 --type string --set /apps/gnome-terminal/profiles/Default/cursor_shape block"
-  au VimLeave * silent execute "!gconftool-2 --type string --set /apps/gnome-terminal/profiles/Default/cursor_shape block"
-endif
+" if has("autocmd")
+"   au InsertEnter * silent execute "!gconftool-2 --type string --set /apps/gnome-terminal/profiles/Default/cursor_shape ibeam"
+"   au InsertLeave * silent execute "!gconftool-2 --type string --set /apps/gnome-terminal/profiles/Default/cursor_shape block"
+"   au VimLeave * silent execute "!gconftool-2 --type string --set /apps/gnome-terminal/profiles/Default/cursor_shape block"
+" endif
 
 " YCM config
 set completeopt=longest,menu  "让Vim的补全菜单行为与一般IDE一致(参考VimTip1228)
