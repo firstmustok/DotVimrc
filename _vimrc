@@ -41,14 +41,32 @@ call pathogen#infect()
 "powerline{ 
   "set guifont=PowerlineSymbols\ for\ Powerline 
   "set guifont=Terminus\ 8
-  "set guifont=Courier_New_for_Powerline:h9
+  set guifont=Courier_New_for_Powerline:h9
+  set guifontwide=NSimsun:h9
   set t_Co=256
-  "let g:Powerline_symbols = 'fancy' 
+  let g:Powerline_symbols = 'fancy' 
+"}
+
+" config for chiness code
+"{
+let $LANG="zh_CN.utf-8"
+"set fileencodings=utf-8,chinese,latin-1,cp936
+set fileencodings=utf-8,ucs-bom,shift-jis,latin1,big5,gb18030,gbk,gb2312,cp936
+set fileencoding=utf-8
+set encoding=utf-8
+
+"menu 
+source $VIMRUNTIME/delmenu.vim
+source $VIMRUNTIME/menu.vim
+
+"console
+language messages zh_CN.utf-8
 "}
 
 " vim air-line(ref https://github.com/bling/vim-airline)
 set laststatus=2
 
+scriptencoding utf-8
 let g:airline_theme="powerlineish"
 let g:airline_detect_whitespace=0
 let g:airline_powerline_fonts = 1
@@ -61,33 +79,6 @@ let g:airline_right_alt_sep = '⮃'
 let g:airline_symbols.branch = '⭠'
 let g:airline_symbols.readonly = '⭤'
 let g:airline_symbols.linenr = '⭡'
-
-" rainbow parentless
-"let g:rbpt_max = 16
-"let g:rbpt_loadcmd_toggle = 1
-"let g:rbpt_colorpairs = [
-"    \ ['brown',       'RoyalBlue3'],
-"    \ ['Darkblue',    'SeaGreen3'],
-"    \ ['darkgray',    'DarkOrchid3'],
-"    \ ['darkgreen',   'firebrick3'],
-"    \ ['darkcyan',    'RoyalBlue3'],
-"    \ ['darkred',     'SeaGreen3'],
-"    \ ['darkmagenta', 'DarkOrchid3'],
-"    \ ['brown',       'firebrick3'],
-"    \ ['gray',        'RoyalBlue3'],
-"    \ ['black',       'SeaGreen3'],
-"    \ ['darkmagenta', 'DarkOrchid3'],
-"    \ ['Darkblue',    'firebrick3'],
-"    \ ['darkgreen',   'RoyalBlue3'],
-"    \ ['darkcyan',    'SeaGreen3'],
-"    \ ['darkred',     'DarkOrchid3'],
-"    \ ['red',         'firebrick3'],
-"    \ ]
-
-"au VimEnter * RainbowParenthesesToggle
-"au Syntax * RainbowParenthesesLoadRound
-"au Syntax * RainbowParenthesesLoadSquare
-"au Syntax * RainbowParenthesesLoadBraces
 
 ""flymaker
 "let g:FlymakerOn = 1
@@ -109,33 +100,6 @@ let g:airline_symbols.linenr = '⭡'
 syntax enable
 
 set nocp
-
-"Generate symbols for ctag
-"map <C-F12> :!ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .<CR>:cscope -bkR -s .<CR>
-map <C-F12> :call GenerateSymbolLinux()<cr>
-function! GenerateSymbolLinux()
-  silent execute ":!ctags -R --c++-kinds=+px --fields=+iaS --extra=+q ."
-
-  " for cscope
-  cs kill -1
-  silent execute ":!find . -name \"*.h\" -o -name \"*.c\"  -o -name \"*.cpp\" > cscope.files"
-  silent execute ":!rm cscope.out"
-  silent execute ":!cscope -bkq -i cscope.files"
-  cs add cscope.out
-  set cscopequickfix=s-,g-,d-,t-,e-,f-,i-
-endfunction
-
-function! GenerateSymbol()
-  silent execute ":!ctags -R --c++-kinds=+p --fields=+iaS --extra=+q ."
-
-  " for cscope
-  cs kill -1
-  silent execute ":!del /f /q cscope.out"
-  silent execute ":!dir /s /b *.c *.h *cpp *.hpp  > cscope.files"
-  silent execute ":!cscope -b -k -q -i cscope.files"
-  cs add cscope.out
-  set cscopequickfix=s-,g-,d-,t-,e-,f-,i-
-endfunction
 
 " return OS type, eg: windows, or linux, mac, et.st..
 function! MySys()
@@ -787,24 +751,6 @@ set showtabline=0     "no tabs
 "set showtabline=1     "default, show only after create
 "set showtabline=2     "always show
 
-" config for chiness code
-"{
-set encoding=utf-8
-set fileencodings=utf-8,chinese,latin-1
-if has("win32")
- set fileencoding=chinese
-else
- set fileencoding=utf-8
-endif
-
-"menu 
-source $VIMRUNTIME/delmenu.vim
-source $VIMRUNTIME/menu.vim
-
-"console
-language messages zh_CN.utf-8
-"}
-
 "for repeat command .
 
 "for align separator
@@ -834,13 +780,6 @@ endif
 "for tab indent
 set list lcs=tab:\|\ "there must following a space
 "}
-
-" change the cursor type
-" if has("autocmd")
-"   au InsertEnter * silent execute "!gconftool-2 --type string --set /apps/gnome-terminal/profiles/Default/cursor_shape ibeam"
-"   au InsertLeave * silent execute "!gconftool-2 --type string --set /apps/gnome-terminal/profiles/Default/cursor_shape block"
-"   au VimLeave * silent execute "!gconftool-2 --type string --set /apps/gnome-terminal/profiles/Default/cursor_shape block"
-" endif
 
 " YCM config
 set completeopt=longest,menu  "让Vim的补全菜单行为与一般IDE一致(参考VimTip1228)
