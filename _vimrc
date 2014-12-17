@@ -876,3 +876,9 @@ au Syntax * RainbowParenthesesLoadBraces
 " supertab top to bottom
 let g:SuperTabDefaultCompletionType = "<c-n>"
 
+" adjust the font size
+map <silent> <c-up>    <Plug>FontsizeInc
+map <silent> <c-down>  <Plug>FontsizeDec
+map <silent> <c-Q>     <Plug>FontsizeDefault
+set timeoutlen=100
+
