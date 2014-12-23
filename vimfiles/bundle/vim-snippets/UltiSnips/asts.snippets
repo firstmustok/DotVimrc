@@ -1,0 +1,393 @@
+priority -50
+
+extends c
+
+# We want to overwrite everything in parent ft.
+priority -49
+
+###########################################################################
+#                       ASTS(Auto Stock Trade System) Comstom             #
+###########################################################################
+snippet gcmd "create cmd class for ASTS(Auto Stock Trade System) .. "
+#include "command.h"
+
+using namespace std;
+
+namespace stock{
+namespace cmd {
+
+class ${1:`!p snip.rv = "C"+string.capwords(snip.basename, sep='_').replace('_', '') or "name"`} : public Command
+{
+public:
+    $1 (${2:});
+    virtual ~$1 ();
+
+    virtual DWORD execute();
+
+private:
+    ${0:/* data */}
+};
+
+} /*end cmd */
+} /*end stock */
+
+using namespace stock;
+using namespace stock::cmd; 
+$1::$1()
+{
+}
+
+$1::~$1()
+{
+}
+
+DWORD $1::execute()
+{
+    ParamConfig paramList[] =
+    {
+        {"para", true},
+    };
+
+    DWORD dwRet = checkParam(paramList, LENGTH(paramList));
+    CHECK_NOT_RETURN(ERR_SUCCESS, dwRet, dwRet);
+
+    JSONValue data;
+    return sendData(data);
+}
+
+ASTS_CMD_INIT(stock::cmd::$1, "command description", "version 1.0");
+
+endsnippet
+
+############################# Plugin (dfo)################################
+snippet gdfo "create plugins for ASTS(Auto Stock Trade System) .. "
+#include "dfo.h"
+
+using namespace std;
+
+namespace stock{
+
+class ${1:`!p snip.rv = "C"+string.capwords(snip.basename, sep='_').replace('_', '') or "name"`} : public IDfo
+{
+public:
+    $1 (${2:});
+    virtual ~$1 ();
+
+    //isUpdate = true.
+    virtual DWORD computeOne(bool flag = 1);
+    virtual DWORD initialize(CParaStream& para);
+    virtual DWORD clear();
+
+private:
+    ${0:/* data */}
+};
+
+} /*end stock */
+
+using namespace stock;
+
+$1::$1()
+{
+}
+
+$1::~$1()
+{
+    clear();
+}
+
+DWORD $1::initialize(CParaStream& param)
+{
+    if(1 > para.getCount())
+    {
+        SLOG_ERROR("Initialize dfo param error, not enough data!");
+        return ERR_FAILURE;
+    }
+    int resultLen;
+    para >> resultLen;
+
+    return ERR_SUCCESS;
+}
+
+DWORD $1::computeOne(bool flag)
+{
+    //TODO: template code
+    //PRD_DATA_TYPE dailyData = get(REDIS_DAILY_DATA, 1);
+    //if(IS_DATA_INVALID(dailyData, 1))
+    //{
+    //    SLOG_DEBUG("Compute dfo error, not enough data : " << getStockCode());
+    //    return ERR_FAILURE;
+    //}
+    //MarketObject* pDaily = (MarketObject*) (dailyData->at(0));
+
+    //CDailyAtrVO vo;
+    //vo.atr       = atr;
+    //vo.lastClose = pDaily->lastClose;
+    //vo.tradetime = pDaily->tradetime;
+    //save(${4:REDIS_DAILY_ATR_DATA}, vo, flag);
+
+    return ERR_SUCCESS;
+}
+
+DWORD $1::clear()
+{
+    return clearData($4);
+}
+
+ASTS_PLUGIN_INIT(stock::$1, "dfo description", "version 1.0");
+
+//period : PLUGIN_FIVE_MIN, PLUGIN_HALF_HOURLY, PLUGIN_HOURLY, PLUGIN_DAILY, PLUGIN_WEEKLY, 
+//ASTS_PLUGIN_INIT_PERIOD(stock::$1, PLUGIN_DAILY, "dfo description", "version 1.0");
+
+endsnippet
+
+############################# Plugin (pfo)################################
+snippet gpfo "create plugins for ASTS(Auto Stock Trade System) .. "
+#include "pfo.h"
+
+using namespace std;
+using namespace stock;
+
+namespace stock{
+
+class ${1:`!p snip.rv = "C"+string.capwords(snip.basename, sep='_').replace('_', '') or "name"`} : public IPfo
+{
+public:
+    $1 (${2:});
+    virtual ~$1 ();
+
+    virtual DWORD initialize(CParaStream& para);
+    virtual DWORD notify(Object*& pOutput);
+
+private:
+    ${0:/* data */}
+};
+
+} /*end stock */
+
+$1::$1()
+{
+}
+
+$1::~$1()
+{
+}
+
+DWORD $1::initialize(CParaStream& param)
+{
+    if(1 > para.getCount())
+    {
+        SLOG_ERROR("Initialize dfo param error, not enough data!");
+        return ERR_FAILURE;
+    }
+    int resultLen;
+    para >> resultLen;
+
+    return ERR_SUCCESS;
+}
+
+DWORD $1::notify(Object*& pOutput)
+{
+    return ERR_SUCCESS;
+}
+
+ASTS_PLUGIN_INIT(stock::$1, "pfo description", "version 1.0");
+
+//period : PLUGIN_FIVE_MIN, PLUGIN_HALF_HOURLY, PLUGIN_HOURLY, PLUGIN_DAILY, PLUGIN_WEEKLY, 
+//ASTS_PLUGIN_INIT_PERIOD(stock::$1, PLUGIN_DAILY, "dfo description", "version 1.0");
+
+endsnippet
+
+############################# Plugin (gfo)################################
+snippet ggfo "create plugins for ASTS(Auto Stock Trade System) .. "
+#include "gfo.h"
+
+using namespace std;
+using namespace stock;
+
+namespace stock{
+
+class ${1:`!p snip.rv = "C"+string.capwords(snip.basename, sep='_').replace('_', '') or "name"`} : public IGfo
+{
+public:
+    $1 (${2:});
+    virtual ~$1 ();
+
+    virtual DWORD initialize(CParaStream& para);
+    virtual DWORD notify(Object* pInput);
+    virtual DWORD clear();
+
+private:
+    ${0:/* data */}
+};
+
+} /*end stock */
+
+$1::$1()
+{
+}
+
+$1::~$1()
+{
+}
+
+DWORD $1::initialize(CParaStream& param)
+{
+    if(1 > para.getCount())
+    {
+        SLOG_ERROR("Initialize dfo param error, not enough data!");
+        return ERR_FAILURE;
+    }
+    int resultLen;
+    para >> resultLen;
+
+    return ERR_SUCCESS;
+}
+
+DWORD $1::notify(Object* pIutput)
+{
+    return ERR_SUCCESS;
+}
+
+DWORD $1::clear()
+{
+    return ERR_SUCCESS;
+}
+
+ASTS_PLUGIN_INIT(stock::$1, "tfo description", "version 1.0");
+
+//period : PLUGIN_FIVE_MIN, PLUGIN_HALF_HOURLY, PLUGIN_HOURLY, PLUGIN_DAILY, PLUGIN_WEEKLY, 
+//ASTS_PLUGIN_INIT_PERIOD(stock::$1, PLUGIN_DAILY, "dfo description", "version 1.0");
+
+endsnippet
+
+############################# Plugin (tfo)################################
+snippet gtfo "create tfo plugins for ASTS(Auto Stock Trade System) .. "
+#include "tfo.h"
+
+using namespace std;
+using namespace stock;
+
+namespace stock{
+
+class ${1:`!p snip.rv = "C"+string.capwords(snip.basename, sep='_').replace('_', '') or "name"`} : public ITfo
+{
+public:
+    $1(${2:});
+    virtual ~$1();
+
+    virtual DWORD initialize(CParaStream&) ;
+
+    virtual DWORD open(DWORD foid, float price);
+    virtual DWORD build(DWORD foid, float price, ITrade* pIns);
+    virtual DWORD buy(DWORD foid, float price, ITrade* pIns);
+    virtual DWORD sell(DWORD foid, float price, ITrade* pIns);
+    virtual DWORD empty(DWORD foid, float price, ITrade* pIns);
+    virtual DWORD lower(DWORD foid, float price, ITrade* pIns);
+    virtual DWORD clear(DWORD foid, float price, ITrade* pIns);
+
+    //global filter for all, even no instance created.
+    virtual DWORD filter(DWORD dwfoid, DWORD dwStockId, StockOP op, void* data);
+
+    //filter for each trade instance.
+    virtual DWORD filter(DWORD dwfoid, DWORD dwStockId, StockOP op, ITrade* pIns, void* data);
+
+    //create trade instance for database initialization.
+    virtual ITrade* createInstance(DWORD dwStockId);
+
+    //create trade instance for pfo events.
+    virtual ITrade* createInstance(DWORD dwStockId, Object* obj);
+
+private:
+	${0:/* data */}
+};
+
+} /*end stock */
+
+
+$1::$1()
+{
+}
+
+$1::~$1()
+{
+}
+
+DWORD $1::initialize(CParaStream& param)
+{
+    if(1 > para.getCount())
+    {
+        SLOG_ERROR("Initialize dfo param error, not enough data!");
+        return ERR_FAILURE;
+    }
+    int resultLen;
+    para >> resultLen;
+
+    return ERR_SUCCESS;
+}
+
+DWORD $1::open(DWORD foid, float price)
+{
+    return ERR_SUCCESS;
+}
+
+DWORD $1::build(DWORD foid, float price, ITrade* pIns)
+{
+    return ERR_SUCCESS;
+}
+
+DWORD $1::buy(DWORD foid, float price, ITrade* pIns)
+{
+    return ERR_SUCCESS;
+}
+
+DWORD $1::sell(DWORD foid, float price, ITrade* pIns)
+{
+    return ERR_SUCCESS;
+}
+
+DWORD $1::empty(DWORD foid, float price, ITrade* pIns)
+{
+    return ERR_SUCCESS;
+}
+
+DWORD $1::lower(DWORD foid, float price, ITrade* pIns)
+{
+    return ERR_SUCCESS;
+}
+
+DWORD $1::clear(DWORD foid, float price, ITrade* pIns)
+{
+    return ERR_SUCCESS;
+}
+
+//global filter for all, even no instance created.
+DWORD $1::filter(DWORD dwfoid, DWORD dwStockId, StockOP op, void* data)
+{
+    return ERR_SUCCESS;
+}
+
+//filter for each trade instance.
+DWORD $1::filter(DWORD dwfoid, DWORD dwStockId, StockOP op, ITrade* pIns, void* data);
+{
+    return ERR_SUCCESS;
+}
+
+//create trade instance for database initialization.
+ITrade* $1::createInstance(DWORD dwStockId)
+{
+    return NULL;
+}
+
+//create trade instance for pfo events.
+ITrade* $1::createInstance(DWORD dwStockId, Object* obj)
+{
+    return NULL;
+}
+
+ASTS_PLUGIN_INIT(stock::$1, "tfo description", "version 1.0");
+
+//period : PLUGIN_FIVE_MIN, PLUGIN_HALF_HOURLY, PLUGIN_HOURLY, PLUGIN_DAILY, PLUGIN_WEEKLY, 
+//ASTS_PLUGIN_INIT_PERIOD(stock::$1, PLUGIN_DAILY, "dfo description", "version 1.0");
+
+endsnippet
+# vim:ft=snippets:
