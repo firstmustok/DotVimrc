@@ -1,0 +1,62 @@
+priority -50
+
+extends c
+
+# We want to overwrite everything in parent ft.
+priority -49
+
+###########################################################################
+#                       ASTS(Auto Stock Trade System) Comstom             #
+###########################################################################
+snippet gcmd "create cmd class for ASTS(Auto Stock Trade System) .. "
+#include "command.h"
+
+using namespace std;
+
+namespace stock{
+namespace cmd {
+
+class ${1:`!p snip.rv = "C"+string.capwords(snip.basename, sep='_').replace('_', '') or "name"`} : public Command
+{
+public:
+	${1/(\w+).*/$1/} (${2:});
+	virtual ~${1/(\w+).*/$1/} ();
+
+	virtual DWORD execute();
+private:
+	${0:/* data */}
+};
+
+} /*end cmd */
+} /*end stock */
+
+using namespace stock;
+using namespace stock::cmd;
+
+${1/(\w+).*/$1/}::${1/(\w+).*/$1/}()
+{
+}
+
+${1/(\w+).*/$1/}::~${1/(\w+).*/$1/}()
+{
+}
+
+DWORD ${1/(\w+).*/$1/}::execute()
+{
+    ParamConfig paramList[] =
+    {
+        {"para", true},
+    };
+
+    DWORD dwRet = checkParam(paramList, LENGTH(paramList));
+    CHECK_NOT_RETURN(ERR_SUCCESS, dwRet, dwRet);
+
+    JSONValue data;
+    return sendData(data);
+}
+
+ASTS_CMD_INIT(stock::cmd::${1/(\w+).*/$1/}, "command description", "version 1.0");
+
+endsnippet
+
+# vim:ft=snippets:
