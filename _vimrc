@@ -41,8 +41,8 @@ call pathogen#infect()
 "powerline{ 
   "set guifont=PowerlineSymbols\ for\ Powerline 
   "set guifont=Terminus\ 8
-  set guifont=Courier_New_for_Powerline:h9
-  set guifontwide=NSimsun:h9
+  "set guifont=Courier_New_for_Powerline:h9
+  "set guifontwide=NSimsun:h9
   set t_Co=256
   let g:Powerline_symbols = 'fancy' 
 "}
@@ -54,6 +54,11 @@ let $LANG="zh_CN.utf-8"
 set fileencodings=utf-8,ucs-bom,shift-jis,latin1,big5,gb18030,gbk,gb2312,cp936
 set fileencoding=utf-8
 set encoding=utf-8
+
+set guifont=Courier_New_for_Powerline:h9
+set guifontwide=NSimsun\:h12
+"set gfw=YaHei\ Consolas\ Hybrid:h9
+set ambiwidth=double
 
 "menu 
 source $VIMRUNTIME/delmenu.vim
