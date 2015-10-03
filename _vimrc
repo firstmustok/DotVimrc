@@ -41,10 +41,11 @@ call pathogen#infect()
 "powerline{ 
   "set guifont=PowerlineSymbols\ for\ Powerline 
   "set guifont=Terminus\ 8
-  set guifont=Courier_New_for_Powerline:h9
-  set guifontwide=NSimsun:h9
+  "set guifont=Courier_New_for_Powerline:h9
+  "set guifontwide=NSimsun:h9
+  "set ambiwidth=double
   set t_Co=256
-  let g:Powerline_symbols = 'fancy' 
+  "let g:Powerline_symbols = 'fancy' 
 "}
 
 " config for chiness code
@@ -54,6 +55,12 @@ let $LANG="zh_CN.utf-8"
 set fileencodings=utf-8,ucs-bom,shift-jis,latin1,big5,gb18030,gbk,gb2312,cp936
 set fileencoding=utf-8
 set encoding=utf-8
+"set guifont=Courier_New_for_Powerline:h9
+"set guifont=Powerline_Consolas:h20
+"set guifont=Bitstream_Vera_Sans_Mono:h10:cANSI
+set guifont=YaHei_Consolas_Hybird:h10:cANSI
+"set guifontwide=NSimsun:h9
+set ambiwidth=double
 
 "menu 
 source $VIMRUNTIME/delmenu.vim
@@ -68,7 +75,7 @@ set laststatus=2
 
 scriptencoding utf-8
 let g:airline_theme="powerlineish"
-let g:airline_detect_whitespace=0
+"let g:airline_detect_whitespace=0
 let g:airline_powerline_fonts = 1
 let g:airline_symbols = {}
 
@@ -657,23 +664,7 @@ au BufEnter *.sablecc,*.scc set ft=sablecc
 """"""""""""""""""""""""""""""
 " JavaScript section
 """""""""""""""""""""""""""""""
-"au FileType javascript so ~/vim_local/syntax/javascript.vim
-au BufRead,BufNewFile jquery.*.js set ft=javascript syntax=jquery
-function! JavaScriptFold()
-  setl foldmethod=syntax
-  setl foldlevelstart=1
-  syn region foldBraces start=/{/ end=/}/ transparent fold keepend extend
-
-  function! FoldText()
-    return substitute(getline(v:foldstart), '{.*', '{...}', '')
-  endfunction
-
-  setl foldtext=FoldText()
-endfunction
-
 "au FileType javascript call JavaScriptFold()
-au FileType javascript setl fen
-au FileType javascript setl nocindent
 
 """"""""""""""""""""""""""""""
 " HTML
@@ -742,7 +733,7 @@ inoremap <C-v> <esc>:set paste<cr>mua<C-R>+<esc>mv'uV'v=:set nopaste<cr>
 map <leader>q :NERDTree %:p:h<cr>
 
 "NERDTree ignore some files
-let NERDTreeIgnore = ['\.pyc$', '\.o$', '\.cxx$']
+let NERDTreeIgnore = ['\.pyc$', '\.o$', '\.cxx$', '\.so$']
 "let NERDTreeShowHidden=1
 
 "Don't show the tabs
